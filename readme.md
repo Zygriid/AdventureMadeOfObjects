@@ -1,3 +1,12 @@
+Hello from theo: Here is my adventure code, as it stands. I have a pretty comprehensive set of unit tests, reciprocal relationships between rooms and players and monsters, hunger, thirst, item interactions, appeasement,and battle. Making the unit test totally was shocking for my codebase, I made them later than i should have, and i found many base level misunderstandings of how object oriented relationships worked. I spent a huge amount of time (much more than writing the code) debugging, and now the program seems to be ina state where all the structures are relatively correctly implemented. I continue to work on and revise this towards a working final project. My next steps are to institute monster movement and then the game loop.
+
+
+
+
+
+
+Here are Descriptions of each part of the file. I found this a useful practie. Aplogies for formatting and language.
+
 The Entity superclass represents a general entity in the code project. It serves as the base class for other classes such as Actor, Place, and Thing. It is the foundation of the code.
 
 The Entity class has the following attributes:
@@ -56,7 +65,6 @@ Treasure class:
 
 The Treasure class represents valuable items or objects that can be discovered or obtained by players. These items are typically associated with rewards or special benefits in the game.
 Instances of the Treasure class are stored in the things list attribute of the Player class.
-
 
 The Player class represents the player character in the game. It is a subclass of the Actor class, which itself is a subclass of the Entity class.
 
@@ -176,42 +184,3 @@ test_pick_up_nonexistent_item: This method tests if the player fails to pick up 
 Finally, the unittest.main() function is called to run the defined tests.
 
 The unittest.py file provides a set of tests to verify the correctness of the game's classes and their methods. Running these tests helps ensure that the implemented functionality behaves as expected and helps catch any potential bugs or issues.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
