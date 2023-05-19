@@ -48,9 +48,7 @@ class Adventure:
 
     def __init__(self):
         self.setup_cave()
-
         self.create_things()
-
         self.create_monsters()
         self.player = Player(self, "Me", "the player")
 

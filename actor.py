@@ -105,7 +105,7 @@ class Monster(Actor):
     def recieveappease(self, player, food):
         if food == self._wants:
             #choose random room
-            self.room = random.choice(list(self.room._connected_rooms))
+            self.room = random.choice(list(self.room._connections))
             print(f'{self.name} has been appeased and has moved rooms')
 
         else:

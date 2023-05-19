@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 from thing import *
 from actor import *
 from cave import *
@@ -10,12 +11,16 @@ class tests(unittest.TestCase):
     def setUp(self):
         # Create a room instance and other necessary objects
         # for testing the monsterattack function
-        self.room = Room("Room1", 'a nice room')
-        self.room._connected_rooms = {'room2, room3, room4'}
+        self.room1 = Room("Room1", 'a nice room')
+        self.room2 = Room("Room2", "A spacious room")
+        self.room3 = Room("room3", 'A wonderful room')
+        self.room1.connect("N", self.room2)
+        self.room2.connect("S", self.room1)
+        self.room1.connect("E", self.room3)
 
-        self.player = Player(self.room, "Me", "the player")
-        self.monster = Monster(self.room, "Monster", "a fierce monster", 'Food', 'axe', self.player)
-        self.room._contents = [self.monster, self.player]
+        self.player = Player(self.room1, "Me", "the player")
+        self.monster = Monster(self.room1, "Monster", "a fierce monster", 'Food', 'axe', self.player)
+        self.room1._contents = [self.monster, self.player]
 
     def test_appease_monster_with_food(self):
 
@@ -104,6 +109,21 @@ class tests(unittest.TestCase):
         self.assertNotIn(item, self.player.resources)
         # Check if the item is not added to the things list
         self.assertNotIn(item, self.player.things)
+
+    def test_move_valid_direction(self):
+        # Mocking the input to simulate the player choosing a valid direction
+        self.player.move("N")
+
+        # Assert that the player's current room has changed to room2
+        self.assertEqual(self.player._room, self.room2)
+
+
+    def test_move_invalid_direction(self):
+        # Mocking the input to simulate the player choosing an invalid direction
+        self.player.move('W')
+
+        # Assert that the player's current room remains unchanged
+        self.assertEqual(self.player.room, self.room1)
 
 
 if __name__ == '__main__':
