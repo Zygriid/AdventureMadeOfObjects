@@ -12,7 +12,7 @@ class Actor(Entity):
 
 class Player(Actor):
 
-    def __init__(self, room, name, description):
+    def __init__(self, room, name, description, cave):
         super().__init__(room, name, description)
         self.resources = []
         self.things = []
@@ -20,6 +20,9 @@ class Player(Actor):
         self._hunger = 0
         self._thirst = 0
         self._hunger_turn = True
+        self._cave = cave
+
+
     def get_hunger(self):
         return self._hunger
     def get_thirst(self):
@@ -66,14 +69,11 @@ class Player(Actor):
         else:
             print("There is no such thing!")
 
-
-
-
-    def monsterattack(self, monstername, weapon):
-        if self.room == monstername.room:
-            monstername.recieveattack(self, weapon)
+    def monsterattack(self, monster_name, weapon):
+        if self.room == monster_name.room:
+            monster_name.recieveattack(self, weapon)
         else:
-            print(f"Luckily, you are not in the same room as {monstername}")
+            print(f"Luckily, you are not in the same room as {monster_name}")
 
     def monsterappease(self, monstername, item):
         if self.room == monstername.room:
@@ -82,15 +82,12 @@ class Player(Actor):
         else:
             print(f"You arent in the same room as {monstername}!")
 
-
     def die(self):
         raise PlayerDiedException('you have been killed.')
 
-
-
 class Monster(Actor):
-    monsterlist = []
 
+# replace player with self.cave.player for readiblity?
     def __init__(self, room, name, description, wants, killed_by, player):
         super().__init__(room, name, description)
         self._wants = wants
@@ -98,7 +95,6 @@ class Monster(Actor):
         self._player = player
         self.room = room
         self.name = name
-        self.monsterlist.append(self)
 
     def recieveattack(self, player, weapon):
         if weapon == self._killed_by:
