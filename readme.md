@@ -1,6 +1,4 @@
-Hello: Here is my adventure code, as it stands. I have a pretty comprehensive set of unit tests, reciprocal relationships between rooms and players and monsters, hunger, thirst, item interactions, appeasement,and battle. Making the unit test totally was shocking for my codebase, I made them later than i should have, and i found many base level misunderstandings of how object oriented relationships worked. I spent a huge amount of time (much more than writing the code) debugging, and now the program seems to be ina state where all the structures are relatively correctly implemented. I continue to work on and revise this towards a working final project. My next steps are to institute monster movement and then the game loop.
-
-
+Hello from theo: Here is my adventure code, as it stands. I have a pretty comprehensive set of unit tests, reciprocal relationships between rooms and players and monsters, hunger, thirst, item interactions, appeasement,and battle. Making the unit test totally was shocking for my codebase, I made them later than i should have, and i found many base level misunderstandings of how object oriented relationships worked. I spent a huge amount of time (much more than writing the code) debugging, and now the program seems to be ina state where all the structures are relatively correctly implemented. I continue to work on and revise this towards a working final project. My next steps are to institute monster movement and then the game loop.
 
 
 
