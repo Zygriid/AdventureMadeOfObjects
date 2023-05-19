@@ -34,9 +34,12 @@ class Player(Actor):
         self._thirst = 0
 
     def move(self, direction):
+        for room in self._cave.get_rooms().values():
+            for monster in room.get_monsters():
+                monster.receivemove(direction)
         if self._room.get_place(direction) is not None:
             self._room = self._room.get_place(direction)
-            self.increase_hunger_and_thirst
+            self.increase_hunger_and_thirst()
         else:
             print("You cannot move in that direction.")
 
@@ -64,6 +67,8 @@ class Player(Actor):
             print("There is no such thing!")
 
 
+
+
     def monsterattack(self, monstername, weapon):
         if self.room == monstername.room:
             monstername.recieveattack(self, weapon)
@@ -84,6 +89,7 @@ class Player(Actor):
 
 
 class Monster(Actor):
+    monsterlist = []
 
     def __init__(self, room, name, description, wants, killed_by, player):
         super().__init__(room, name, description)
@@ -92,6 +98,7 @@ class Monster(Actor):
         self._player = player
         self.room = room
         self.name = name
+        self.monsterlist.append(self)
 
     def recieveattack(self, player, weapon):
         if weapon == self._killed_by:
@@ -105,12 +112,23 @@ class Monster(Actor):
     def recieveappease(self, player, food):
         if food == self._wants:
             #choose random room
-            self.room = random.choice(list(self.room._connections))
+            self.room = random.choice(list(self.room._connected_rooms))
             print(f'{self.name} has been appeased and has moved rooms')
 
         else:
             print('Appeasing failed')
             player.die()
+
+
+    def receivemove(self, direction):
+        if self._room.get_place(direction) is not None:
+            self._room = self._room.get_place(direction)
+        else:
+            pass
+
+
+
+
 
 
 
