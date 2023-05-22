@@ -1,5 +1,6 @@
 from entity import Entity
 import random
+from cave import *
 
 
 class PlayerDiedException(Exception):
@@ -37,11 +38,11 @@ class Player(Actor):
         self._thirst = 0
 
     def move(self, direction):
-        for room in self._cave.get_rooms().values():
-            for monster in room.get_monsters():
-                monster.receivemove(direction)
         if self._room.get_place(direction) is not None:
             self._room = self._room.get_place(direction)
+            monsterlist = self._cave.get_monsterindex()
+            for monster in monsterlist:
+                monster.receivemove(direction)
             self.increase_hunger_and_thirst()
         else:
             print("You cannot move in that direction.")
@@ -108,7 +109,7 @@ class Monster(Actor):
     def recieveappease(self, player, food):
         if food == self._wants:
             #choose random room
-            self.room = random.choice(list(self.room._connected_rooms))
+            self.room = random.choice(list(self.room._connections))
             print(f'{self.name} has been appeased and has moved rooms')
 
         else:
