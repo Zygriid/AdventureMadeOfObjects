@@ -18,7 +18,7 @@ class Room(Place):
     def __init__(self, name, description):
         super().__init__(name, description)
         self._contents = []
-        self._connected_rooms = {}
+        self._connections = {}
         self._name = name
 
     def connect(self, direction, other):
