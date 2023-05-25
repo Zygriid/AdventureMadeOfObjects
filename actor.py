@@ -23,6 +23,14 @@ class Player(Actor):
         self._hunger_turn = True
         self._cave = cave
 
+    def show_inventory(self):
+        inventory = self.resources + self.things
+        print("Inventory:")
+        if not inventory:
+            print("Empty")
+        else:
+            for item in inventory:
+                print("- " + item.get_name())
 
     def get_hunger(self):
         return self._hunger
@@ -44,6 +52,18 @@ class Player(Actor):
             for monster in monsterlist:
                 monster.receivemove(direction)
             self.increase_hunger_and_thirst()
+            self._room.describe()
+            if self._room.has_monster():
+                print("Monsters in the room:")
+                for monster in self.roommonster:
+                    print(monster.get_name())
+                self.handle_monster()
+
+            else:
+                print("There are no monsters in the room.")
+
+
+
         else:
             print("You cannot move in that direction.")
 
@@ -53,6 +73,10 @@ class Player(Actor):
         else:
             self._thirst += 1
         self._hunger_turn = not self._hunger_turn
+
+    def describe_current_room(self):
+        room = self._room
+        print(f"You are in {room.get_name()}. {room.get_description()}")
 
     def pick_up(self, item):
         if item in self.room._contents:
@@ -69,6 +93,15 @@ class Player(Actor):
                 self.things.append(item)
         else:
             print("There is no such thing!")
+
+    def handle_monster(self):
+        action = input("What do you want to do? (Try to appease the monster or fight the monsterr? (appease/fight)): ")
+        if action.lower() == "appease":
+            self.monsterappease()
+        elif action.lower() == "attack":
+            self.monsterattack()
+        else:
+            print("Invalid action. Please choose 'monsterappease' or 'monsterattack'.")
 
     def monsterattack(self, monster_name, weapon):
         if self.room == monster_name.room:

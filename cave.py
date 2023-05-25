@@ -2,16 +2,19 @@
 
 class Cave:
 
-    def __init__(self,
-                 rooms,
-                 passages,
-                 monsterindex,
-                 playerindex
-                ):
+    def __init__(self, rooms=None, passages=None, monsterindex=None, playerindex=None):
+        if rooms is None:
+            rooms = {}
         self._rooms = rooms
+        if passages is None:
+            passages = {}
         self._passages = passages
-        self._playerindex = playerindex
+        if monsterindex is None:
+            monsterindex = {}
         self._monsterindex = monsterindex
+        if playerindex is None:
+            playerindex = {}
+        self._playerindex = playerindex
 
     def get_passage(self, name):
         return self._passages.get(name, None)
@@ -28,6 +31,18 @@ class Cave:
 
     def get_monsterindex(self):
         return self._monsterindex
+
+    def add_room(self, room):
+        self._rooms[room.get_name()] = room
+
+    def add_passage(self, passage):
+        self._passages[passage.get_name()] = passage
+
+    def add_monster(self, monster):
+        self._monsterindex[monster.get_name()] = monster
+
+    def add_player(self, player):
+        self._playerindex[player.get_name()] = player
 
     def __str__(self):
         return str("The Cave")

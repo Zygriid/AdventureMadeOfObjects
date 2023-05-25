@@ -15,23 +15,36 @@ class Place(Entity):
 
 class Room(Place):
 
-    def __init__(self, name, description):
+    def __init__(self, name, description, roommonster=[]):
         super().__init__(name, description)
         self._contents = []
         self._connections = {}
         self._name = name
+        self.roommonster = roommonster
 
     def connect(self, direction, other):
         assert direction in ['N', 'E', 'W', 'S']
         self._connections[direction] = other
 
+    def add_content(self, content):
+        self._contents.append(content)
+
+    def remove_content(self, content):
+        if content in self._contents:
+            self._contents.remove(content)
+
     def describe(self):
-        "Describe the things and actors in the room"
-        print(self._room, self._description)
+        print("You are in", self._name)
+        print(self._description)
+        print("Contents:", ", ".join(str(content) for content in self._contents))
+
+    def has_monster(self):
+        return len(self.roommonster) > 0
+
 
 class Passage(Place):
     """Goes from one room to another where rooms do not
-    connect directly"""
+connect directly"""
 
     def __init__(self, name, description):
         super().__init__(name, description)
