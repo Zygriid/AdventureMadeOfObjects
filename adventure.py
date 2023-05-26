@@ -84,11 +84,29 @@ class Adventure:
 
 
     def place_everything(self):
-            """Put the things in rooms"""
-            # Example usage:
-            room = self._cave.get_room('RA')
-            room.add_content(self._resources['water'])
-            room.add_content(self._monsters['M1'])
+
+        monsters = list(self._cave.get_monsterindex())
+        resources = [self._resources['food'], self._resources['water'], self._weapons['axe'], self._weapons['rock'], self._treasures['coins'], self._treasures['diamonds']]
+
+        # Shuffle the lists of monsters and resources
+        random.shuffle(monsters)
+        random.shuffle(resources)
+
+        # Assign monsters to rooms
+        for moose in self._cave.get_rooms():
+            if monsters:
+                monster = monsters.pop()
+                moose.add_content(monster)
+
+        # Assign resources to rooms
+        for room in self._cave.get_rooms():
+            if resources:
+                resource = resources.pop()
+                room._contents.append(resource)
+
+
+
+
 
     def play(self):
         print("Welcome to the Adventure Game!")

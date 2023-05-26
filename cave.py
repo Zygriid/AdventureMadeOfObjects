@@ -24,13 +24,13 @@ class Cave:
         return self._rooms[name]
 
     def get_rooms(self):
-        return self._rooms
+        return self._rooms.values()
 
     def get_playerindex(self):
         return self._playerindex
 
     def get_monsterindex(self):
-        return self._monsterindex
+        return self._monsterindex.values()
 
     def add_room(self, room):
         self._rooms[room.get_name()] = room

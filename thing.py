@@ -10,9 +10,10 @@ class Treasure(Thing):
     def __init__(self, name, description, value):
         super().__init__(name, description)
         self._value = value
+        self._description = description
 
     def __str__(self):
-        return f"""{self.description} worth {self._value}"""
+        return f"""{self._description} worth {self._value}"""
 
 class Weapon(Thing):
 
